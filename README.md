@@ -2,5 +2,5 @@
 
 ### Goals
 
-[ ] Make it possible to create Minecraft plugins written in TypeScript
-[ ] Make the server stable and secure
+- [ ] Make it possible to create Minecraft plugins written in TypeScript  
+- [ ] Make the server stable and secure
