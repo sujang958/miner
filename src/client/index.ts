@@ -31,8 +31,6 @@ class Client extends EventEmitter {
       )
       const data = packet.subarray(plVarintLength + piVarintLength)
 
-      console.log("Data", data)
-
       if (this.state === ProtocolStates.HANDSHAKING) {
         const { nextState, protocolVersion } = await handshake(data)
 
