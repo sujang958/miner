@@ -1,17 +1,12 @@
 import { LEB128 } from "@minhducsun2002/leb128"
 
-/**
- *
- * @param id {number} Should be hex value
- */
-const formatPacket = async (id: number, buffer: Buffer) => {
-  const packetLength = Buffer.from(LEB128.encode(buffer.length + 1))
+const formatPacket = async (id: string, buffer: Buffer) => {
+  const packetId = Buffer.from(LEB128.encode(parseInt(id)))
+  const packetLength = Buffer.from(
+    LEB128.encode(buffer.length + packetId.length)
+  )
 
-  return Buffer.concat([
-    packetLength,
-    Buffer.from(id.toString(), "hex"),
-    buffer,
-  ])
+  return Buffer.concat([packetLength, packetId, buffer])
 }
 
 export default formatPacket

@@ -2,13 +2,22 @@ import { createServer, Server as SocketServer } from "net"
 import Client from "../client"
 import { EventEmitter } from "stream"
 import { v4 } from "uuid"
+import SupportedProtocolVersions, {
+  isSupportedVersion,
+  SupportedProtocolVersionsKey,
+} from "../data/protocolVersion"
 
 class Server extends EventEmitter {
   public clients: Map<string, Client> = new Map()
+  public protocolVersion: number
   public socketServer: SocketServer
 
-  constructor(public readonly version: string) {
+  constructor(public readonly version: SupportedProtocolVersionsKey) {
     super()
+
+    if (!isSupportedVersion(version)) throw new Error("Unsupported version")
+
+    this.protocolVersion = SupportedProtocolVersions[version]
 
     this.socketServer = createServer()
 
@@ -23,6 +32,7 @@ class Server extends EventEmitter {
 
       socket.on("data", (packet) => {
         console.log(packet, packet.length, packet.BYTES_PER_ELEMENT)
+        console.log("-------------------")
       })
 
       socket.on("close", () => {

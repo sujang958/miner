@@ -1,8 +1,15 @@
-const ProtocolVersions = {
+const SupportedProtocolVersions = {
   "1.19.3": 761,
-  "1.19.2": 760,
-  "1.19.1": 760,
-  "1.19": 759,
 }
 
-export default ProtocolVersions
+export type SupportedProtocolVersionsKey =
+  keyof typeof SupportedProtocolVersions
+
+export const isSupportedVersion = (
+  version: string
+): version is SupportedProtocolVersionsKey => {
+  if (version in SupportedProtocolVersions) return true
+  else return false
+}
+
+export default SupportedProtocolVersions
