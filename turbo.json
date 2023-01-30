@@ -1,0 +1,53 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "globalDependencies": ["yarn.lock"],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "../../tsconfig.json",
+        "../../tsup.config.ts",
+        "src/**/*.ts",
+        "tsconfig.json",
+        "tsup.config.ts"
+      ],
+      "outputs": ["dist/**", "build/**"]
+    },
+    "lint": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "../../.eslintrc.json",
+        "../../.prettierrc.json",
+        "../../tsconfig.json",
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        ".eslintrc.json",
+        ".prettierrc.json",
+        "tsconfig.json",
+        "tsup.config.ts"
+      ],
+      "outputs": []
+    },
+    "format": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "../../.eslintrc.json",
+        "../../.prettierrc.json",
+        "../../tsconfig.json",
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        ".eslintrc.json",
+        ".prettierrc.json",
+        "tsconfig.json",
+        "tsup.config.ts"
+      ],
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    },
+    "test": {
+      "cache": true
+    }
+  }
+}
